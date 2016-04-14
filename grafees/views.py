@@ -1,6 +1,6 @@
 from flask import render_template
 from flask import redirect # redirect http
-# import pygal
+import pygal
 from grafees import app
 
 @app.route('/')
