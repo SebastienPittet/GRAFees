@@ -1,6 +1,7 @@
 from flask import render_template
 from flask import redirect # redirect http
 import pygal
+from pygal.style import LightGreenStyle
 from grafees import app
 
 @app.route('/')
@@ -16,10 +17,15 @@ def graph():
 
 @app.route('/chart')
 def test():
-    bar_chart = pygal.HorizontalStackedBar()
-    bar_chart.title = "Remarquable sequences"
-    bar_chart.x_labels = map(str, range(11))
-    bar_chart.add('Fibonacci', [0, 1, 1, 2, 3, 5, 8, 13, 21, 34, 55])
-    bar_chart.add('Padovan', [1, 1, 1, 2, 2, 3, 4, 5, 7, 9, 12]) 
-    chart = bar_chart.render(is_unicode=True)
+    hist_chart = pygal.HorizontalStackedBar(Show_legend=True,
+                                            legend_box_size=18,
+                                            print_values=True,
+                                            rounded_bars=2,
+                                            style=LightGreenStyle)
+    hist_chart.title = "Remarquable sequences"
+    hist_chart.x_title = "Some Numbers"
+    hist_chart.x_labels = map(str, range(11))
+    hist_chart.add('Fibonacci', [0, 1, 1, 2, 3, 5, 8, 13, 21, 34, 55])
+    hist_chart.add('Padovan', [1, 1, 1, 2, 2, 3, 4, 5, 7, 9, 12]) 
+    chart = hist_chart.render(is_unicode=True)
     return render_template('chart.html', chart=chart )
