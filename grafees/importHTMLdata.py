@@ -1,5 +1,7 @@
-#!/usr/bin/env python
 #coding=utf-8
+
+from flask import json, jsonify
+
 
 # HTTP libraries depends upon Python 2 or 3
 from sys import version_info
@@ -9,7 +11,7 @@ else:
     from urllib import urlencode
     import urllib2
 
-the_url = 'http://www.csavelink.com/cl/da.php?s=106&g=1&w=101&l=20'
+the_url = 'http://www.cavelink.com/cl/da.php?s=106&g=1&w=101&l=20'
 req = urllib2.Request(the_url)
 
 try:
@@ -22,5 +24,30 @@ else:
 if Error:
     print "Unable to get HTML content. Ca a foiré :-("
 else:
-	 # Print the HTML page
-	 print handle.read()
+	# Print the HTML page
+	htmlContent = handle.read()
+	
+	# Convert <br> with CRLF
+	htmlContent = htmlContent.replace("<br>", "\r\n")
+	
+	# Translate
+	htmlContent = htmlContent.replace("Einheit", "Unit")
+	htmlContent = htmlContent.replace("Stn=", "Station=")
+	htmlContent = htmlContent.replace("Grp=", "Group=")
+	
+	# Finding spaces and replace by separator
+	htmlContent = htmlContent.replace(" ", "    ") # separator = 4 spaces?
+	htmlContent = htmlContent.replace(",", "")
+	htmlContent = htmlContent.replace(";:;", ":")
+	
+	# Ready to transform string in JSON format
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	print htmlContent
