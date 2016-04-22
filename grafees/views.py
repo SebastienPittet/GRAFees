@@ -68,9 +68,9 @@ def monthlyAVGtemp():
     
     debug = ""
     for module, moduleData in dev.lastData(exclude=3600).items():
-        debug = debug + "zzz"
+        debug = debug + module + "\r\n"
         for sensor, value in moduleData.items():
-            debug = debug + str(sensor) + str(value)
+            debug = debug + str(sensor) + "=" + str(value) + "\r\n"
     
     # Get Temperature and Humidity with GETMEASURE web service (1 sample every 30min)
     resp = dev.getMeasure( device_id='70:ee:50:05:cc:ac',                             # Replace with your values
