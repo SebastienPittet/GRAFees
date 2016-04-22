@@ -9,7 +9,13 @@
   <body>
       <h1>Réseau des Fées @ Vallorbe</h1>
 	  <h2>Visualisation graphique [GRAFees]</h2>
-	  <a href="/">Home</a> > <a href="/chart">Display a graph</a> >  <a href="/netatmo">Ballaigues in Temp!</a>
+	  <a href="/">Home</a> > <a href="/chart">Display a graph</a> >  <a href="/netatmo">Ballaigues in Temp!</a> > <a href="/monthlyAVGtemp">Monthly Average Temp in Ballaigues</a>
 	{% block content %} {% endblock %}
+    
+    {% if debugText %}
+    <h2>Debug information below</h2>
+    {{ debugText }}
+    {% endif %}
+    <div id="footer"><hr>Footer : Dev in progress.</div>
   </body>
 </html>
