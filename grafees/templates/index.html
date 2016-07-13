@@ -1,21 +1,73 @@
+<!DOCTYPE html>
+<!--[if lt IE 7 ]> <html lang="en" class="no-js ie6"> <![endif]-->
+<!--[if IE 7 ]>    <html lang="en" class="no-js ie7"> <![endif]-->
+<!--[if IE 8 ]>    <html lang="en" class="no-js ie8"> <![endif]-->
+<!--[if IE 9 ]>    <html lang="en" class="no-js ie9"> <![endif]-->
+<!--[if (gt IE 9)|!(IE)]><!--> <html lang="en" class="no-js"> <!--<![endif]-->
 <html>
-  <head>
+<head>
+  	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width">
+	
     {% if title %}
     <title>.: {{ title }} @ GEF GRAFees :.</title>
     {% else %}
     <title>.: GRAFées @ visualisation graphique GEF :.</title>
     {% endif %}
-  </head>
-  <body>
-      <h1>Réseau des Fées @ Vallorbe</h1>
-	  <h2>Visualisation graphique [GRAFees]</h2>
-	  <a href="/">Home</a> > <a href="/chart">Display a graph</a> >  <a href="/netatmo">Ballaigues in Temp!</a> > <a href="/monthlyAVGtemp">Monthly Average Temp in Ballaigues</a>
-	{% block content %} {% endblock %}
-    
-    {% if debugText %}
-    <h2>Debug information below</h2>
-    {{ debugText }}
-    {% endif %}
-    <div id="footer"><hr>Footer : Dev in progress.</div>
+
+  <link rel="shortcut icon" href="favicon.ico">
+  <link rel="stylesheet" href="css/style.css">
+  <script src="http://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"></script>
+  <script src="http://cdnjs.cloudflare.com/ajax/libs/modernizr/2.5.3/modernizr.min.js"></script>
+	
+  <meta name="keywords" content="" />
+  <meta name="description" content="" />
+  
+</head>
+<body class="cf">
+  <header class="span4">
+  	<div class="inner cf">
+  		<h1 class="alt span3">Réseau des Fées @ Vallorbe</h1>
+  	<nav class="span1 col">
+			<ul class="cf">
+				<li><a class="alt" href="/">Home</a></li>
+				<li><a class="alt" href="/chart">Display Sample Graph</a></li>
+				<li><a class="alt" href="/netatmo">Ballaigues current temp</a></li>
+				<li><a class="alt" href="/monthlyAVGtemp">Monthly average Temp in Ballaigues</a></li>
+			</ul>
+		</nav>
+	</div>
+  </header>
+ 
+   <div id="container" class="cf">  
+
+  	<article class="span3">
+		<section>
+          <h1>Visualisation graphique [GRAFees]</h1>
+          {% block content %} {% endblock %}  
+        </section>
+		
+		{% if debugText %}
+		<section>
+		<h2>Debug information below</h2>
+		{{ debugText }}
+		</section>
+		{% endif %}
+	</article>
+
+	<aside class="span1 col">
+		<h2>aside h2</h2>
+        <p>Text bar</p>
+
+        <h2>aside h2</h2>
+        <p>Text bar</p>
+	</aside>
+
+  </div> <!--! end of #container -->
+ 	
+	<footer class="footer">
+		<HR>
+		Footer : Dev in progress.
+	</footer><!-- .footer -->	
   </body>
 </html>

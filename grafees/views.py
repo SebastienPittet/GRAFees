@@ -60,13 +60,13 @@ def monthlyAVGtemp():
 
     # Time of information collection : monthly temp
     now = time.time()
-    start = now - 30 * 24 * 3600
+    start = now - (30 * 24 * 3600) #epoch time - 30 days
     
     # Get data from Netatmo
     authorization = lnetatmo.ClientAuth()
     dev = lnetatmo.DeviceList(authorization)
     
-    debug = ""
+    debug = str(dev.lastData(exclude=3600).items()) + ""
     for module, moduleData in dev.lastData(exclude=3600).items():
         debug = debug + module + "\r\n"
         for sensor, value in moduleData.items():
@@ -80,4 +80,4 @@ def monthlyAVGtemp():
                            date_begin=start,
                            date_end=now)
      
-    return render_template("index.html", title='DEBUG', debugText=debug)
+    return render_template("index.html", title='DEBUG', debugText=start)
