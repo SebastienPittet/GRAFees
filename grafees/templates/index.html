@@ -16,7 +16,7 @@
     {% endif %}
 
   <link rel="shortcut icon" href="favicon.ico">
-  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
   <script src="http://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"></script>
   <script src="http://cdnjs.cloudflare.com/ajax/libs/modernizr/2.5.3/modernizr.min.js"></script>
 	
@@ -27,10 +27,9 @@
 <body class="cf">
   <header class="span4">
   	<div class="inner cf">
-  		<h1 class="alt span3">Réseau des Fées @ Vallorbe</h1>
+  		<h1 class="alt span3"><a href="/">Réseau des Fées @ Vallorbe</a></h1>
   	<nav class="span1 col">
 			<ul class="cf">
-				<li><a class="alt" href="/">Home</a></li>
 				<li><a class="alt" href="/chart">Display Sample Graph</a></li>
 				<li><a class="alt" href="/netatmo">Ballaigues current temp</a></li>
 				<li><a class="alt" href="/monthlyAVGtemp">Monthly average Temp in Ballaigues</a></li>
@@ -56,11 +55,11 @@
 	</article>
 
 	<aside class="span1 col">
-		<h2>aside h2</h2>
-        <p>Text bar</p>
+		<h2>News</h2>
+        <p>Print some news here...</p>
 
-        <h2>aside h2</h2>
-        <p>Text bar</p>
+        <h2>Links</h2>
+        <p>Links to forum + blog</p>
 	</aside>
 
   </div> <!--! end of #container -->
