@@ -49,7 +49,7 @@ def currentTemp():
                           x_title = "Locations",
                           y_title = "Current Degrees",
                           legend_at_bottom=True)
-    bar_chart.title = "Temp. Ballaigues"
+    bar_chart.title = "Current Temp. @ Ballaigues"
     bar_chart.add('Indoor', tempIndoor)
     bar_chart.add('Outdoor', tempOutdoor)
     chart = bar_chart.render(is_unicode=True)
