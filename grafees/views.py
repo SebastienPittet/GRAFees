@@ -2,16 +2,12 @@
 from flask import render_template
 from flask import redirect # redirect http
 
-from flask_wtf import Form
-from wtforms import StringField
-from wtforms.validators import DataRequired
-
 import pygal
 from pygal.style import LightGreenStyle
 from grafees import app
 import lnetatmo
 import time
-
+import grafees_forms
 
 @app.route('/')
 @app.route('/index')
@@ -89,3 +85,12 @@ def AVGtemp():
     debugText = "DEBUG DEBUG DEBUG : display a form to get the dates and then display a graph."
      
     return render_template("index.html", title='DEBUG', debugText=debugText)
+
+@app.route('/submit', methods=['GET', 'POST'])
+def submit():
+    debugText = "DEBUG DEBUG DEBUG : display a form to get the dates and then display a graph."
+    form = grafees_forms.Intervalle(csrf_enabled=False)
+    if form.validate_on_submit():
+        return redirect('/success')
+    return render_template('form.html', form=form, debugText=debugText)
+

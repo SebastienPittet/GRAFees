@@ -49,8 +49,11 @@
         
 		{% if debugText %}       
 		<section>
-		<h2>Debug information below</h2>
+		<h2>Formulaire de saisie des dates (moyennne)</h2>
 		{{ debugText }}
+		
+		{% block form %} {% endblock %}	
+		
 		</section>
 		{% endif %}
         
