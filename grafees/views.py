@@ -9,6 +9,7 @@ import lnetatmo
 import time
 import grafees_forms
 
+
 @app.route('/')
 @app.route('/index')
 def index():
@@ -88,8 +89,9 @@ def AVGtemp():
 
 @app.route('/submit', methods=['GET', 'POST'])
 def submit():
+    # http://flask.pocoo.org/docs/0.11/patterns/wtforms/#in-the-view
     debugText = "DEBUG DEBUG DEBUG : display a form to get the dates and then display a graph."
-    form = grafees_forms.Intervalle(csrf_enabled=False)
+    form = grafees_forms.Intervalle()
     if form.validate_on_submit():
         return redirect('/success')
     return render_template('form.html', form=form, debugText=debugText)

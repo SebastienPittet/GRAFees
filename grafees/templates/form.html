@@ -1,10 +1,12 @@
 {% extends "index.html" %}
 
 {% block form %}
-<p>TEST</p>
+
 <form method="POST" action="/submit">
     {{ form.hidden_tag() }}
-    {{ form.name.label }} {{ form.name(size=20) }}
-    <input type="submit" value="Go">
+    {{ form.name.label }} {{ form.name(size=20) }}<br>
+    {{ form.dateFrom.label }} {{ form.dateFrom(size=10)}}<br>
+    {{ form.dateTo.label }} {{ form.dateTo(size=10)}}<br>
+    <input type="submit" value="Generate Dashboard">
 </form>
 {% endblock %}
