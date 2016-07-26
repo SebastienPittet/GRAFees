@@ -7,6 +7,5 @@ from wtforms.validators import DataRequired
 
 
 class Intervalle(Form):
-    name = StringField('name', validators=[DataRequired()])
-    dateFrom = DateField('Date from', validators=[DataRequired()])
-    dateTo = DateField('Date To', validators=[DataRequired()])
+    dateFrom = DateField('Date from', validators=[DataRequired()], format='%d.%m.%Y')
+    dateTo = DateField('Date To', validators=[DataRequired()], format='%d.%m.%Y')

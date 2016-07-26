@@ -45,18 +45,9 @@
           <h1>Visualisation graphique [GRAFees]</h1>
           {% block content %} {% endblock %}  
         </section>
-		
+
         
-		{% if debugText %}       
-		<section>
-		<h2>Formulaire de saisie des dates (moyennne)</h2>
-		{{ debugText }}
-		
-		{% block form %} {% endblock %}	
-		
-		</section>
-		{% endif %}
-        
+        {% block Select2Dates %} {% endblock %}	  
 	</article>
 
 	<aside class="span1 col">
@@ -72,7 +63,7 @@
  	
 	<footer class="footer">
 		<HR>
-		Footer : Groupe d'Exploration aux Fées, Vallorbe
+		Groupe d'Exploration aux Fées, Vallorbe
 	</footer><!-- .footer -->	
   </body>
 </html>

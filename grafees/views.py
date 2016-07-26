@@ -1,4 +1,5 @@
 #coding=utf-8
+from flask import flash
 from flask import render_template
 from flask import redirect # redirect http
 
@@ -58,41 +59,52 @@ def currentTemp():
     chart = bar_chart.render(is_unicode=True)
     return render_template('chart.html', chart=chart)
     
-@app.route('/AVGtemp')
+@app.route('/AVGtemp', methods=('GET', 'POST'))
 def AVGtemp():
-
-    # # Time of information collection : monthly temp
-    # now = time.time()
-    # start = now - (30 * 24 * 3600) #epoch time - 30 days
+    # http://flask.pocoo.org/docs/0.11/patterns/wtforms/#in-the-view
+    debugText = "DEBUG DEBUG DEBUG : display a form to get the dates and then display a graph."
+    selectIntervalle = grafees_forms.Intervalle()
     
-    # # Get data from Netatmo
-    # authorization = lnetatmo.ClientAuth()
-    # dev = lnetatmo.DeviceList(authorization)
+    if selectIntervalle.validate_on_submit():
+        dateFrom = selectIntervalle.dateFrom.data
+        dateTo = selectIntervalle.dateTo.data
+        
+        # Check dates
+        # from is < to and not same day
+        
+        # start = now - (30 * 24 * 3600) #epoch time - 30 days
     
-    # debug = str(dev.lastData(exclude=3600).items()) + ""
-    # for module, moduleData in dev.lastData(exclude=3600).items():
-        # debug = debug + module + "\r\n"
-        # for sensor, value in moduleData.items():
-            # debug = debug + str(sensor) + "=" + str(value) + "\r\n"
+        # Get data from Netatmo
+        # authorization = lnetatmo.ClientAuth()
+        # dev = lnetatmo.DeviceList(authorization)
     
-    # # Get Temperature and Humidity with GETMEASURE web service (1 sample every 30min)
+        # debug = str(dev.lastData(exclude=3600).items()) + ""
+        # for module, moduleData in dev.lastData(exclude=3600).items():
+            # debug = debug + module + "\r\n"
+            # for sensor, value in moduleData.items():
+                # debug = debug + str(sensor) + "=" + str(value) + "\r\n"
+    
+            # # Get Temperature and Humidity with GETMEASURE web service (1 sample every 30min)
     # resp = dev.getMeasure( device_id='70:ee:50:05:cc:ac',                             # Replace with your values
                            # module_id='02:00:00:05:c2:96',                             #    "      "    "    "
                            # scale="30min",
                            # mtype="Temperature",
                            # date_begin=start,
                            # date_end=now)
-
-    debugText = "DEBUG DEBUG DEBUG : display a form to get the dates and then display a graph."
-     
-    return render_template("index.html", title='DEBUG', debugText=debugText)
-
-@app.route('/submit', methods=['GET', 'POST'])
-def submit():
-    # http://flask.pocoo.org/docs/0.11/patterns/wtforms/#in-the-view
-    debugText = "DEBUG DEBUG DEBUG : display a form to get the dates and then display a graph."
-    form = grafees_forms.Intervalle()
-    if form.validate_on_submit():
-        return redirect('/success')
-    return render_template('form.html', form=form, debugText=debugText)
+        
+        
+        hist_chart = pygal.Bar(Show_legend=True,
+                                            legend_box_size=18,
+                                            print_values=True,
+                                            rounded_bars=2,
+                                            style=LightGreenStyle)
+        hist_chart.title = "Average temperature in Ballaigues during selected period"
+        hist_chart.x_title = "Period"
+        hist_chart.x_labels = map(str, range(1))
+        hist_chart.add('Average', [12]) 
+        chart = hist_chart.render(is_unicode=True)
+        
+        return render_template('chart.html', chart=chart)
+    return render_template('form.html', form=selectIntervalle, debugText=debugText)
+    
 
