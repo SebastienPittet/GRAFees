@@ -66,45 +66,39 @@ def AVGtemp():
     selectIntervalle = grafees_forms.Intervalle()
     
     if selectIntervalle.validate_on_submit():
-        dateFrom = selectIntervalle.dateFrom.data
-        dateTo = selectIntervalle.dateTo.data
-        
-        # Check dates
-        # from is < to and not same day
-        
-        # start = now - (30 * 24 * 3600) #epoch time - 30 days
-    
-        # Get data from Netatmo
-        # authorization = lnetatmo.ClientAuth()
-        # dev = lnetatmo.DeviceList(authorization)
-    
-        # debug = str(dev.lastData(exclude=3600).items()) + ""
-        # for module, moduleData in dev.lastData(exclude=3600).items():
-            # debug = debug + module + "\r\n"
-            # for sensor, value in moduleData.items():
-                # debug = debug + str(sensor) + "=" + str(value) + "\r\n"
-    
-            # # Get Temperature and Humidity with GETMEASURE web service (1 sample every 30min)
-    # resp = dev.getMeasure( device_id='70:ee:50:05:cc:ac',                             # Replace with your values
-                           # module_id='02:00:00:05:c2:96',                             #    "      "    "    "
-                           # scale="30min",
-                           # mtype="Temperature",
-                           # date_begin=start,
-                           # date_end=now)
-        
-        
-        hist_chart = pygal.Bar(Show_legend=True,
+        dateFromEpoch = int(time.mktime(time.strptime(str(selectIntervalle.dateFrom.data),"%Y-%m-%d")))     
+        dateToEpoch = int(time.mktime(time.strptime(str(selectIntervalle.dateTo.data),"%Y-%m-%d")))
+
+        if dateFromEpoch < dateToEpoch:
+            # Create graph
+            # Get data from NetAtmo
+            authorization = lnetatmo.ClientAuth()
+            dev = lnetatmo.DeviceList(authorization)
+            
+            for module, moduleData in dev.lastData(exclude=3600).items():
+                for sensor, value in moduleData.items():
+                    # Get Temperature and Humidity with GETMEASURE web service (1 sample every 30min)
+                    resp = dev.getMeasure( device_id='70:ee:50:05:cc:ac',   # Replace with your values  
+                                            module_id='02:00:00:05:c2:96',  #    "      "    "    "
+                                            scale="30min",
+                                            mtype="Temperature",
+                                            date_begin=dateFromEpoch,
+                                            date_end=dateToEpoch)
+
+            hist_chart = pygal.Bar(Show_legend=True,
                                             legend_box_size=18,
                                             print_values=True,
                                             rounded_bars=2,
                                             style=LightGreenStyle)
-        hist_chart.title = "Average temperature in Ballaigues during selected period"
-        hist_chart.x_title = "Period"
-        hist_chart.x_labels = map(str, range(1))
-        hist_chart.add('Average', [12]) 
-        chart = hist_chart.render(is_unicode=True)
-        
-        return render_template('chart.html', chart=chart)
+            hist_chart.title = "Average temperature in Ballaigues between %s and %s" % (str(selectIntervalle.dateFrom.data), str(selectIntervalle.dateTo.data))
+            hist_chart.x_title = "Period"
+            hist_chart.x_labels = map(str, range(4))
+            hist_chart.add('Average', [12]) 
+            chart = hist_chart.render(is_unicode=True)
+
+            debugText = str(resp)
+            
+            return render_template('chart.html', chart=chart, debugText=debugText)      
     return render_template('form.html', form=selectIntervalle, debugText=debugText)
     
 
