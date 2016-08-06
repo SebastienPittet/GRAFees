@@ -86,10 +86,10 @@ def AVGtemp():
                                             date_begin=dateFromEpoch,
                                             date_end=dateToEpoch)
             
-            # Dict parsing
-            values = ""
-            for hour in resp['body']:
-                values = values + ";" + str(resp['body'][hour])        
+            values = [(int(k),v[0]) for k,v in resp['body'].items()]
+            values.sort() # as values provided by netatmo are not sorted by default /!\
+            xval, ytemp = zip(*values) # split the lists
+            
             
             # hist_chart = pygal.Bar(Show_legend=True,
                                         # legend_box_size=18,
@@ -99,15 +99,15 @@ def AVGtemp():
             # hist_chart.title = "Average temperature in Ballaigues between %s and %s" % (str(selectIntervalle.dateFrom.data), str(selectIntervalle.dateTo.data))
             # hist_chart.x_title = "Period of time"
             # hist_chart.x_labels = map(str, range( len(resp['body'])) ) # number of measures
-            # hist_chart.add('Temperatures °C', [12,20,15]) 
+            # #hist_chart.add('Temperatures °C', [12,20,15]) 
+            # hist_chart.add('Temperatures °C', [ytemp])
             # chart = hist_chart.render(is_unicode=True)
 
-            debugText = "test"
-            debugText = values
+            debugText = ytemp
             
             #return render_template('chart.html', chart=chart, debugText=debugText)      
             return render_template('index.html',
-                                    title = "from AVGtemp",
+                                   title = "from AVGtemp",
                                     debugText=debugText)
     return render_template('form.html', form=selectIntervalle, debugText=debugText)
     
