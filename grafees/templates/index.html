@@ -64,6 +64,11 @@
 	<footer class="footer">
 		<HR>
 		Groupe d'Exploration aux Fées, Vallorbe
+        <HR>
+        {% if debugText %}
+        Debug from {{ title }} is :<br>
+            {{ debugText }}
+        {% endif %}
 	</footer><!-- .footer -->	
   </body>
 </html>

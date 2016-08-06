@@ -87,25 +87,28 @@ def AVGtemp():
                                             date_end=dateToEpoch)
             
             # Dict parsing
-            #values = ""
-            #for hour in resp['body']:
-            #    values = values + ";" + str(resp['body'][hour])
-            #                                
+            values = ""
+            for hour in resp['body']:
+                values = values + ";" + str(resp['body'][hour])        
             
-            hist_chart = pygal.Bar(Show_legend=True,
-                                            legend_box_size=18,
-                                            print_values=True,
-                                            rounded_bars=2,
-                                            style=LightGreenStyle)
-            hist_chart.title = "Average temperature in Ballaigues between %s and %s" % (str(selectIntervalle.dateFrom.data), str(selectIntervalle.dateTo.data))
-            hist_chart.x_title = "Period of time"
-            hist_chart.x_labels = map(str, range( len(resp['body'])) ) # number of measures
-            hist_chart.add('Temperatures °C', [12,20,15]) 
-            chart = hist_chart.render(is_unicode=True)
+            # hist_chart = pygal.Bar(Show_legend=True,
+                                        # legend_box_size=18,
+                                        # print_values=True,
+                                        # rounded_bars=2,
+                                        # style=LightGreenStyle)
+            # hist_chart.title = "Average temperature in Ballaigues between %s and %s" % (str(selectIntervalle.dateFrom.data), str(selectIntervalle.dateTo.data))
+            # hist_chart.x_title = "Period of time"
+            # hist_chart.x_labels = map(str, range( len(resp['body'])) ) # number of measures
+            # hist_chart.add('Temperatures °C', [12,20,15]) 
+            # chart = hist_chart.render(is_unicode=True)
 
             debugText = "test"
+            debugText = values
             
-            return render_template('chart.html', chart=chart, debugText=debugText)      
+            #return render_template('chart.html', chart=chart, debugText=debugText)      
+            return render_template('index.html',
+                                    title = "from AVGtemp",
+                                    debugText=debugText)
     return render_template('form.html', form=selectIntervalle, debugText=debugText)
     
 

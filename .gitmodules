@@ -1,0 +1,3 @@
+[submodule "grafees/netatmo-api-python"]
+	path = grafees/netatmo-api-python
+	url = https://github.com/philippelt/netatmo-api-python.git
