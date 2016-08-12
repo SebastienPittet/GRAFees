@@ -63,7 +63,7 @@ def currentTemp():
 @app.route('/AVGtemp', methods=('GET', 'POST'))
 def AVGtemp():
     # http://flask.pocoo.org/docs/0.11/patterns/wtforms/#in-the-view
-    debugText = "DEBUG DEBUG DEBUG : display a form to get the dates and then display a graph."
+
     selectIntervalle = grafees_forms.Intervalle()
     
     if selectIntervalle.validate_on_submit():
@@ -88,27 +88,23 @@ def AVGtemp():
             
             values = [(int(k),v[0]) for k,v in resp['body'].items()]
             values.sort() # as values provided by netatmo are not sorted by default /!\
-            xval, ytemp = zip(*values) # split the lists
+            xtime, ytemp = zip(*values) # split the lists
             
             
-            # hist_chart = pygal.Bar(Show_legend=True,
-                                        # legend_box_size=18,
-                                        # print_values=True,
-                                        # rounded_bars=2,
-                                        # style=LightGreenStyle)
-            # hist_chart.title = "Average temperature in Ballaigues between %s and %s" % (str(selectIntervalle.dateFrom.data), str(selectIntervalle.dateTo.data))
-            # hist_chart.x_title = "Period of time"
-            # hist_chart.x_labels = map(str, range( len(resp['body'])) ) # number of measures
-            # #hist_chart.add('Temperatures °C', [12,20,15]) 
-            # hist_chart.add('Temperatures °C', [ytemp])
-            # chart = hist_chart.render(is_unicode=True)
+            hist_chart = pygal.Bar(Show_legend=True,
+                                        legend_box_size=18,
+                                        print_values=True,
+                                        rounded_bars=2,
+                                        style=LightGreenStyle)
+            hist_chart.title = "Average temperature in Ballaigues between %s and %s" % (str(selectIntervalle.dateFrom.data), str(selectIntervalle.dateTo.data))
+            hist_chart.x_title = "Average = "
+            hist_chart.x_labels = xtime
+            hist_chart.add('temp', ytemp)
+            chart = hist_chart.render(is_unicode=True)
 
-            debugText = ytemp
-            
-            #return render_template('chart.html', chart=chart, debugText=debugText)      
-            return render_template('index.html',
-                                   title = "from AVGtemp",
-                                    debugText=debugText)
+            debugText = ""           
+            return render_template('chart.html', chart=chart, debugText=debugText)      
+
     return render_template('form.html', form=selectIntervalle, debugText=debugText)
     
 
