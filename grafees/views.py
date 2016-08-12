@@ -96,15 +96,15 @@ def AVGtemp():
                                         print_values=True,
                                         rounded_bars=2,
                                         style=LightGreenStyle)
-            hist_chart.title = "Average temperature in Ballaigues between %s and %s" % (str(selectIntervalle.dateFrom.data), str(selectIntervalle.dateTo.data))
-            hist_chart.x_title = "Average = "
+            hist_chart.title = "Temperature in Ballaigues between %s and %s" % (str(selectIntervalle.dateFrom.data), str(selectIntervalle.dateTo.data))
+            hist_chart.x_title = "Moyenne sur la période = ? (to be done)"
             hist_chart.x_labels = xtime
-            hist_chart.add('temp', ytemp)
+            hist_chart.add('Température °C', ytemp)
             chart = hist_chart.render(is_unicode=True)
 
             debugText = ""           
             return render_template('chart.html', chart=chart, debugText=debugText)      
-
+    debugText = ""    
     return render_template('form.html', form=selectIntervalle, debugText=debugText)
     
 
