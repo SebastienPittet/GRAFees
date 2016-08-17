@@ -1,4 +1,4 @@
-#coding=utf-8
+# encoding: utf-8
 from flask import flash
 from flask import render_template
 from flask import redirect # redirect http
@@ -90,14 +90,13 @@ def AVGtemp():
             values.sort() # as values provided by netatmo are not sorted by default /!\
             xtime, ytemp = zip(*values) # split the lists
             
-            
             hist_chart = pygal.Bar(Show_legend=True,
                                         legend_box_size=18,
-                                        print_values=True,
+                                        print_values=False,
                                         rounded_bars=2,
                                         style=LightGreenStyle)
             hist_chart.title = "Temperature in Ballaigues between %s and %s" % (str(selectIntervalle.dateFrom.data), str(selectIntervalle.dateTo.data))
-            hist_chart.x_title = "Moyenne sur la période = ? (to be done)"
+            hist_chart.x_title = "Moyenne sur la période = " + str(sum(ytemp)/len(ytemp)) + "°C"
             hist_chart.x_labels = xtime
             hist_chart.add('Température °C', ytemp)
             chart = hist_chart.render(is_unicode=True)
