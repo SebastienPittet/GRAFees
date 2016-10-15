@@ -11,6 +11,8 @@ apt-get install python3
 easy_install pip
 git clone <this repository>
 cd GRAFees
-pip install -r requirements.txt
+virtualenv flask
 source flask/bin/activate
+pip install -r requirements.txt
+
 ```
