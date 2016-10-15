@@ -2,5 +2,6 @@ flask
 pygal
 urllib3
 Flask-WTF
+virtualenv
 
 
