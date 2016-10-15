@@ -10,4 +10,7 @@ apt-get update && apt-get dist-upgrade
 apt-get install python3
 easy_install pip
 git clone <this repository>
+cd GRAFees
 pip install -r requirements.txt
+source flask/bin/activate
+
