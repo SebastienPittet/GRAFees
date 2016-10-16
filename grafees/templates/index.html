@@ -42,11 +42,15 @@
 
   	<article class="span3">
 		<section>
-          <h1>Visualisation graphique [GRAFees]</h1>
+          {% if title %}
+          <h1>{{ title }}</h1>
+          {% else %}
+          <h1>GRAFées - Visualisation de données</h1>
+          {% endif %}
+          
           {% block content %} {% endblock %}  
         </section>
 
-        
         {% block Select2Dates %} {% endblock %}	  
 	</article>
 

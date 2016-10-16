@@ -16,7 +16,7 @@ import grafees_forms
 @app.route('/index')
 def index():
     return render_template("index.html",
-                           title = 'GRAFees')	
+                           title = u'GRAFées - Groupe Exploration Fées')	
 
 @app.route('/pygal')
 def graph():
@@ -50,7 +50,6 @@ def currentTemp():
                           print_values=True,
                           rounded_bars=2,
                           style=LightGreenStyle,
-                          width=300,
                           x_title = "Locations",
                           y_title = "Current Degrees",
                           legend_at_bottom=True)
@@ -93,16 +92,17 @@ def AVGtemp():
             hist_chart = pygal.Bar(Show_legend=True,
                                         legend_box_size=18,
                                         print_values=False,
+                                        dynamic_print_values=True,
                                         rounded_bars=2,
                                         style=LightGreenStyle)
-            hist_chart.title = u"Température in Ballaigues between %s and %s" % (str(selectIntervalle.dateFrom.data), str(selectIntervalle.dateTo.data))
+            hist_chart.title = u"Température à Ballaigues période %s and %s" % (str(selectIntervalle.dateFrom.data), str(selectIntervalle.dateTo.data))
             hist_chart.x_title = u"Moyenne sur la période = " + str(sum(ytemp)/len(ytemp)).decode() + u"°C"
             hist_chart.x_labels = xtime
             hist_chart.add(u'Température °C', ytemp)
             chart = hist_chart.render().decode('utf-8')
 
             debugText = str(sum(ytemp)/len(ytemp)) 
-            return render_template('chart.html', chart=chart, debugText=debugText)      
+            return render_template('chart.html', chart=chart, debugText=debugText, title=u"Moyenne des températures")      
     debugText = ""    
     return render_template('form.html', form=selectIntervalle, debugText=debugText)
     
