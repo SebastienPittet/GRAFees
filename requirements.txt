@@ -2,7 +2,6 @@ flask
 pygal
 urllib3
 Flask-WTF
-HTMLParser
 python-dateutil
 virtualenv
 
