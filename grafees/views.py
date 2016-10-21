@@ -60,7 +60,7 @@ def AVGtemp():
             # Create graph
             # Get data from NetAtmo
             authorization = lnetatmo.ClientAuth()
-            dev = lnetatmo.DeviceList(authorization)
+            dev = lnetatmo.WeatherStationData(authorization)
             
             for module, moduleData in dev.lastData(exclude=3600).items():
                 for sensor, value in moduleData.items():
@@ -92,3 +92,18 @@ def AVGtemp():
     debugText = ""    
     return render_template('form.html', form=selectIntervalle, debugText=debugText)
     
+@app.route('/rainGraph', methods=('GET', 'POST'))
+def rainGraph():
+    #Display a view of rain over the cave
+    
+    selectIntervalle = grafees_forms.Intervalle()
+    
+    if selectIntervalle.validate_on_submit():
+        dateFromEpoch = int(time.mktime(time.strptime(str(selectIntervalle.dateFrom.data),"%Y-%m-%d")))     
+        dateToEpoch = int(time.mktime(time.strptime(str(selectIntervalle.dateTo.data),"%Y-%m-%d")))
+        
+        if dateFromEpoch < dateToEpoch:
+            # CreateGraph
+            # Get data from Public Data Netatmo
+            authorization = lnetatmo.ClientAuth()
+            dev = lnetatmo.PublicData(authorization) # see how to change default coordinates in module lnetatmo.
