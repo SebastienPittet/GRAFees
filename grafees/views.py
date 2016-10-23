@@ -96,14 +96,18 @@ def AVGtemp():
 def rainGraph():
     #Display a view of rain over the cave
     
-    selectIntervalle = grafees_forms.Intervalle()
+    authorization = lnetatmo.ClientAuth()
+    dev = lnetatmo.PublicData(authorization) # see how to change default coordinates in module lnetatmo.
     
-    if selectIntervalle.validate_on_submit():
-        dateFromEpoch = int(time.mktime(time.strptime(str(selectIntervalle.dateFrom.data),"%Y-%m-%d")))     
-        dateToEpoch = int(time.mktime(time.strptime(str(selectIntervalle.dateTo.data),"%Y-%m-%d")))
-        
-        if dateFromEpoch < dateToEpoch:
-            # CreateGraph
-            # Get data from Public Data Netatmo
-            authorization = lnetatmo.ClientAuth()
-            dev = lnetatmo.PublicData(authorization) # see how to change default coordinates in module lnetatmo.
+    hist_chart = pygal.Bar(Show_legend = True,
+                           legend_box_size = 18,
+                           print_values = True,
+                           rounded_bars = 2,
+                           style = LightGreenStyle)
+    hist_chart.title = u"Corrélation pluie au Brassus et Cave-Link"
+    hist_chart.x_title = u"TEST"
+    hist_chart.x_labels = 'H'
+    hist_chart.add(u"mm de pluie", dev.get24h())
+    chart = hist_chart.render().decode('utf-8')
+    return render_template('chart.html', chart=chart, title="/!\ Rain Graph is in Developpment.",debugText = "in Development. Come again later!")
+            
