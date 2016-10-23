@@ -92,8 +92,8 @@ def AVGtemp():
     debugText = ""    
     return render_template('form.html', form=selectIntervalle, debugText=debugText)
     
-@app.route('/rainGraph', methods=('GET', 'POST'))
-def rainGraph():
+@app.route('/CorrelateRain', methods=('GET', 'POST'))
+def CorrelateRain():
     #Display a view of rain over the cave
     
     authorization = lnetatmo.ClientAuth()
