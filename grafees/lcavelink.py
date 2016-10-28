@@ -69,7 +69,7 @@ class GetCaveLinkData:
         for line in lines:
             epochDatetime = findDate(line[0:16])
             if epochDatetime:
-                DictValues [epochDatetime] = line[17:] # Creation dictionnaire de valeurs
+                DictValues [epochDatetime] = float(line[17:]) # Creation dictionnaire de valeurs
             else:
                 #skip the line
                 print ("Error, no date found by parser :-/")
