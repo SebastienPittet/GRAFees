@@ -5,7 +5,7 @@
 """
 This API provides access to Cave-Link data. It has some interest for cavers.
 Following libraries are required :
-    * python-dateutil
+    $ pip install python-dateutil
 """
 
 from dateutil.parser import *
@@ -21,7 +21,7 @@ else:
 
 ########################### Common definitions #########################
 
-_CL_NIVEAU_S2_COVA = "http://www.cavelink.com/cl/da.php?s=115&g=1&w=103&l=20"
+_CL_NIVEAU_S2_COVA = "http://www.cavelink.com/cl/da.php?s=115&g=1&w=103&l=10"
 
 #########################################################################
 
@@ -64,22 +64,16 @@ class GetCaveLinkData:
         
     def GetData(self):
         lines = self.contentData.split("\r\n")
+        DictValues = {}
 
         for line in lines:
-            datetime = findDate(line[0:16])
-            if datetime:
-                print (datetime, line[17:0])
+            epochDatetime = findDate(line[0:16])
+            if epochDatetime:
+                DictValues [epochDatetime] = line[17:] # Creation dictionnaire de valeurs
             else:
                 #skip the line
                 print ("Error, no date found by parser :-/")
-        return 0
-
-    def handle_data(self, data):
-        print (data[:16], data[18:])
-        dateTimeFound = parse(data, ignoretz=True)
-        return dateTimeFound
-    
-    # Besoin de python-dateutil ??
+        return DictValues
 
 ####################### SOME USEFUL TOOLS ###############################
 def toEpoch(value):
@@ -87,10 +81,12 @@ def toEpoch(value):
 
 def findDate(inputValue):
     try:
-        epochDateTime = parse(inputValue, ignoretz=True)
+        DateTimeString = str(parse(inputValue, ignoretz=True))
     except:
-        epochDateTime = ""
-    return epochDateTime
+        DateTimeString = "1970-01-01 00:00:00"
+     
+    # Convert to epoch date time and return the value   
+    return toEpoch(DateTimeString)
 ######################################################################
 
     
