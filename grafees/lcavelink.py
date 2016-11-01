@@ -21,11 +21,12 @@ else:
 
 ########################### Common definitions #########################
 
-_CL_NIVEAU_S2_COVA = "http://www.cavelink.com/cl/da.php?s=115&g=1&w=103&l=10"
+_CL_NIVEAU_S2_COVA = "http://www.cavelink.com/cl/da.php?s=115&g=1&w=103&l=100"
+_CL_NIVEAU_LANCELEAU = "http://www.cavelink.com/cl/da.php?s=142&g=20&w=100&l=10"
 
+
+default_CL = _CL_NIVEAU_LANCELEAU
 #########################################################################
-
-default_CL = _CL_NIVEAU_S2_COVA
 
 class GetCaveLinkData:
     """
@@ -50,7 +51,6 @@ class GetCaveLinkData:
         htmlContent = htmlContent.replace("Grp=", "Group=")
         htmlContent = htmlContent.replace("<br>", "\r\n")
         htmlContent = htmlContent.replace(",", "")
-        #htmlContent = htmlContent.replace(";:;", ":")
         htmlContent = htmlContent.replace("Unit : m", "Unit=m")
 
         #Separate Header from Data
@@ -58,9 +58,13 @@ class GetCaveLinkData:
         self.contentData = htmlContent[htmlContent.index("=m")+5:]   
 
     @property
+
     def GetHeader(self):
-        
-        return self.contentHeader
+        DictHeader = {}
+        DictHeader ['Station'] = 0
+        DictHeader ['Unit'] =  1
+        DictHeader ['Group'] = 2
+        return DictHeader
         
     def GetData(self):
         lines = self.contentData.split("\r\n")

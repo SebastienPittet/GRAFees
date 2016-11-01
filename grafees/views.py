@@ -97,7 +97,7 @@ def AVGtemp():
 def CorrelateRain():
     #Display a view of rain over the cave
     
-    Covatannaz_S2 = lcavelink.GetCaveLinkData()
+    Lanceleau_m = lcavelink.GetCaveLinkData()
     
     authorization = lnetatmo.ClientAuth()
     dev = lnetatmo.PublicData(authorization) # see how to change default coordinates in module lnetatmo.
@@ -110,8 +110,9 @@ def CorrelateRain():
     hist_chart.title = u"Corrélation pluie au Brassus et Données Cave-Link"
     hist_chart.x_title = u"Dates au format Epoch"
     hist_chart.y_title = u"Niveau d'eau au dessus de la sonde"
-    hist_chart.x_labels = Covatannaz_S2.GetData().keys()
-    hist_chart.add(u"Covatannaz S2", Covatannaz_S2.GetData().values())
+    hist_chart.x_labels = Lanceleau_m.GetData().keys()
+    hist_chart.add(u"Lanceleau", Lanceleau_m.GetData().values())
+    hist_chart.add(u"Lac Glaisine", [1.2,0.8,0.5,05,0.4,3, 3,4,4.5])
     hist_chart.add(u"Pluie Brassus", dev.get24h(), secondary=True) #second axe
     chart = hist_chart.render().decode('utf-8')
     return render_template('chart.html', chart=chart, title="/!\ Rain Graph is in Developpment.",debugText = "in Development. Come again later!")
