@@ -30,7 +30,7 @@ _CL_TEMP_SIPHON = "http://www.cavelink.com/cl/da.php?s=106&g=1&w=0&l=10"
 default_CL = _CL_NIVEAU_LANCELEAU
 #########################################################################
 
-class GetCaveLinkData:
+class CaveLinkData:
     """
     Parse the webpage used to export the data and
     provides values back.
