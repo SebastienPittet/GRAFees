@@ -43,7 +43,7 @@ def currentTemp():
     bar_chart.add('Indoor', tempIndoor)
     bar_chart.add('Outdoor', tempOutdoor)
     chart = bar_chart.render(is_unicode=True)
-    return render_template('chart.html', chart=chart)
+    return render_template('chart.html', chart=chart, title=u'Orée des Bois : en live')
     
 @app.route('/AVGtemp', methods=('GET', 'POST'))
 def AVGtemp():
@@ -91,7 +91,7 @@ def AVGtemp():
             debugText = "" 
             return render_template('chart.html', chart=chart, debugText=debugText, title=u"Moyenne des températures")      
     debugText = ""    
-    return render_template('form.html', form=selectIntervalle, debugText=debugText)
+    return render_template('form.html', form=selectIntervalle, title=u'Moyenne des températures', debugText=debugText)
     
 @app.route('/CorrelateRain', methods=('GET', 'POST'))
 def CorrelateRain():

@@ -29,16 +29,16 @@
 					 
 					<button class="navbar-toggle" type="button" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
 						 <span class="sr-only">Toggle navigation</span><span class="icon-bar"></span><span class="icon-bar"></span><span class="icon-bar"></span>
-					</button> <a class="navbar-brand" href="#">Groupe d'Exploration aux Fées</a>
+					</button> <a class="navbar-brand" href="/">Groupe d'Exploration aux Fées</a>
 				</div>
 				
 				<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
 					<ul class="nav navbar-nav">
 						<li class="active">
-							<a href="http://blog.explo-fees.ch">Blog</a>
+							<a href="http://blog.explo-fees.ch" target="_blank">Blog</a>
 						</li>
 						<li>
-							<a href="http://forum.explo-fees.ch">Forum</a>
+							<a href="http://forum.explo-fees.ch" target="_blank">Forum</a>
 						</li>
 						<li class="dropdown">
 							 <a class="dropdown-toggle" href="#" data-toggle="dropdown">Graphiques<strong class="caret"></strong></a>
@@ -47,10 +47,10 @@
 									<a href="/CorrelateRain">Impact Pluie</a>
 								</li>
 								<li>
-									<a href="/TempBallaigues">Ballaigues</a>
+									<a href="/TempBallaigues">Ballaigues en live</a>
 								</li>
 								<li>
-									<a href="/AVGtemp">Moyenne des températures</a>
+									<a href="/AVGtemp">Moyenne des températures OdB</a>
 								</li>
 								<li class="divider">
 								</li>
@@ -104,7 +104,7 @@
           {% if title %}
           <h1>{{ title }}</h1>
           {% else %}
-          <h1>GRAFées - Visualisation de données</h1>
+          <h1>GRAFées</h1>
           {% endif %}
         	 
 				<p>
@@ -112,11 +112,9 @@
 				</p>
 			</div>
 			<div class="page-header">
-				<h1>test</h1>
 				   {% block content %} {% endblock %}  
 
                    {% block Select2Dates %} {% endblock %}
-				
 			</div>
 		</div>
 	</div>
