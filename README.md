@@ -14,5 +14,6 @@ cd GRAFees
 virtualenv flask
 source flask/bin/activate
 pip install -r requirements.txt
+python3 run.py
 
 ```
