@@ -89,7 +89,7 @@ class CaveLinkData:
             epochDatetime = findDate(line[0:16])
             if epochDatetime:
                 # a date was found on this line
-                DictValues [epochDatetime] = float(line[17:]) # Creation dictionnaire de valeurs
+                DictValues [epochDatetime] = float(line[17:]) # Create a dict with values
         return DictValues
 
 ####################### SOME USEFUL TOOLS ###############################

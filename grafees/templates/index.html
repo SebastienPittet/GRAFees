@@ -52,6 +52,7 @@
 								<li>
 									<a href="/AVGtemp">Moyenne des températures OdB</a>
 								</li>
+								<!--
 								<li class="divider">
 								</li>
 								<li>
@@ -62,9 +63,11 @@
 								<li>
 									<a href="#">One more separated link</a>
 								</li>
+								-->
 							</ul>
 						</li>
 					</ul>
+					<!--
 					<form class="navbar-form navbar-left" role="search">
 						<div class="form-group">
 							<input class="form-control" type="text">
@@ -73,10 +76,12 @@
 							Submit
 						</button>
 					</form>
+					-->
 					<ul class="nav navbar-nav navbar-right">
 						<li>
 							<a href="#">Link</a>
 						</li>
+						<!--
 						<li class="dropdown">
 							 <a class="dropdown-toggle" href="#" data-toggle="dropdown">Dropdown<strong class="caret"></strong></a>
 							<ul class="dropdown-menu">
@@ -96,6 +101,7 @@
 								</li>
 							</ul>
 						</li>
+						-->
 					</ul>
 				</div>
 				
@@ -106,18 +112,22 @@
           {% else %}
           <h1>GRAFées</h1>
           {% endif %}
-        	 
+		  		<!--
 				<p>
 					<a class="btn btn-primary btn-large" href="#">Learn more</a>
 				</p>
+				-->
 			</div>
 			<div class="page-header">
 				   {% block content %} {% endblock %}  
 
                    {% block Select2Dates %} {% endblock %}
+
+				   {% block CorrelateForm %} {% endblock %}
 			</div>
 		</div>
 	</div>
+	<!--
 	<div class="row">
 		<div class="col-md-4">
 			<h2>
@@ -152,6 +162,7 @@
 				<a class="btn" href="#">View details »</a>
 			</p>
 		</div>
+		-->
 	</div>
 </div>
 

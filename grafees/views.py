@@ -89,31 +89,35 @@ def AVGtemp():
             chart = hist_chart.render().decode('utf-8')
 
             debugText = "" 
-            return render_template('chart.html', chart=chart, debugText=debugText, title=u"Moyenne des températures")      
+            return render_template('chart.html', chart=chart, title=u"Moyenne des températures", debugText=debugText)      
     debugText = ""    
     return render_template('form.html', form=selectIntervalle, title=u'Moyenne des températures', debugText=debugText)
     
 @app.route('/CorrelateRain', methods=('GET', 'POST'))
 def CorrelateRain():
     #Display a view of rain over the cave
-    
-    Lanceleau = lcavelink.CaveLinkData("http://www.cavelink.com/cl/da.php?s=142&g=20&w=100&l=24")
-    
-    authorization = lnetatmo.ClientAuth()
-    dev = lnetatmo.PublicData(authorization) # see how to change default coordinates in module lnetatmo.
-    
-    hist_chart = pygal.Bar(Show_legend = True,
-                           legend_box_size = 18,
-                           dynamic_print_values = True,
-                           rounded_bars = 2,
-                           style = LightGreenStyle)
-    hist_chart.title = u"Corrélation pluie au Brassus et Données Cave-Link"
-    hist_chart.x_title = u"Dates au format Epoch"
-    hist_chart.y_title = u"Niveau d'eau au dessus de la sonde"
-    hist_chart.x_labels = Lanceleau.GetData().keys() # in epoch
-    hist_chart.add(u"Lanceleau", Lanceleau.GetData().values())
-    #hist_chart.add(u"Lac Glaisine", [1.2,0.8,0.5,05,0.4,3, 3,4,4.5])
-    hist_chart.add(u"Pluie Brassus", dev.get24h(), secondary=True) #second axe
-    chart = hist_chart.render().decode('utf-8')
-    return render_template('chart.html', chart=chart, title="/!\ Rain Graph is in Developpment.",debugText = "in Development. Come again later!")
 
+    CorrelateRainForm = grafees_forms.CorrelateRainSelect()
+    if CorrelateRainForm.validate_on_submit():
+        number_days = int(CorrelateRainForm.Period.data)
+
+        Lanceleau = lcavelink.CaveLinkData("http://www.cavelink.com/cl/da.php?s=142&g=20&w=100&l=100")
+    
+        authorization = lnetatmo.ClientAuth()
+        dev = lnetatmo.PublicData(authorization) # see how to change default coordinates in module lnetatmo.
+    
+        hist_chart = pygal.Bar(Show_legend = True,
+                             legend_box_size = 18,
+                             dynamic_print_values = True,
+                             rounded_bars = 2,
+                             style = LightGreenStyle)
+        hist_chart.title = u"Corrélation pluie au Brassus et Données Cave-Link"
+        hist_chart.x_title = u"Dates au format Epoch"
+        hist_chart.y_title = u"Niveau d'eau au dessus de la sonde"
+        hist_chart.x_labels = Lanceleau.GetData().keys() # in epoch
+        hist_chart.add(u"Lanceleau", Lanceleau.GetData().values())
+        #hist_chart.add(u"Lac Glaisine", [1.2,0.8,0.5,05,0.4,3, 3,4,4.5])
+        hist_chart.add(u"Pluie Brassus", dev.get24h(), secondary=True) #second axe
+        chart = hist_chart.render().decode('utf-8')
+        return render_template('chart.html', chart=chart, title='/!\ Rain Graph is in Developpment.', debugText = '')
+    return render_template('CorrelateRainForm.html', form=CorrelateRainForm, title=u'Impact Pluie - Select historique', debugText='')

@@ -1,0 +1,12 @@
+{% extends "index.html" %}
+
+{% block CorrelateForm %}
+<section>
+    <h2>Impact pluie - Historique souhaité</h2>
+        <form method="POST" action="/CorrelateRain">
+        {{ form.hidden_tag() }}
+        {{ form.Period.label }} {{ form.Period(size=3)}}<br>
+        <input type="submit" value="Generate Chart">
+    </form>
+</section>
+{% endblock %}
