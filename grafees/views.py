@@ -122,4 +122,4 @@ def CorrelateRain():
         hist_chart.add(u"Pluie Brassus", dev.get24h(), secondary=True) #second axe
         chart = hist_chart.render().decode('utf-8')
         return render_template('chart.html', chart=chart, title='/!\ Rain Graph is in Developpment.', debugText = '')
-    return render_template('CorrelateRainForm.html', form=CorrelateRainForm, title=u'Impact Pluie - Select historique', debugText='')
+    return render_template('CorrelateRainForm.html', form=CorrelateRainForm, title=u'Impact de pluie sur le réseau', debugText='')
