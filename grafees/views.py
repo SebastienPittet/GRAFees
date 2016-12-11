@@ -101,7 +101,9 @@ def CorrelateRain():
     if CorrelateRainForm.validate_on_submit():
         number_days = int(CorrelateRainForm.Period.data)
 
-        Lanceleau = lcavelink.CaveLinkData("http://www.cavelink.com/cl/da.php?s=142&g=20&w=100&l=100")
+        # Cave-link get a sample each 30min. => 48 samples per day
+        LanceleauCavelinkURL = "http://www.cavelink.com/cl/da.php?s=142&g=20&w=100&l=" + str(number_days*48)
+        Lanceleau = lcavelink.CaveLinkData(LanceleauCavelinkURL)
     
         authorization = lnetatmo.ClientAuth()
         dev = lnetatmo.PublicData(authorization) # see how to change default coordinates in module lnetatmo.
