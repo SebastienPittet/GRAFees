@@ -107,6 +107,8 @@ def CorrelateRain():
     
         authorization = lnetatmo.ClientAuth()
         dev = lnetatmo.PublicData(authorization) # see how to change default coordinates in module lnetatmo.
+        
+        # To do : Add a condition to avoid CountStationinArea <= 0
     
         hist_chart = pygal.Bar(Show_legend = True,
                              legend_box_size = 18,

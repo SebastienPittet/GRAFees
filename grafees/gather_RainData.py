@@ -1,3 +1,4 @@
+#!/usr/bin/python
 # encoding: utf-8
 
 # all the imports
@@ -27,15 +28,32 @@ def query_db(query, args=(), one=False):
     return (rv[0] if rv else None) if one else rv
 
 ###############################################################################
-# Application to schedule using crontab
+# Application to schedule using crontab (each 60min)
 
 # Get data from NetAtmo
 authorization = lnetatmo.ClientAuth()
-leSentier = lnetatmo.PublicData(authorization) # see how to change default coordinates in module lnetatmo.
+area_leSentier = lnetatmo.PublicData(authorization) # see how to change default coordinates in module lnetatmo.
 
-# Insert data in database
-query = 'INSERT INTO MEASURES (Epoch, Value, Unit, Station) VALUES (%s, %s, 1, 1)' % ( leSentier.getTime_serverEpoch(), leSentier.get24h() )
-result = query_db(query, one=False)
-print (result)
+timestamps = area_leSentier.getTimeforMeasure()
+locations = area_leSentier.getLocations()
+rain_measures = area_leSentier.get24h()
+rain60min = area_leSentier.get60min()
 
-print (u'Valeur mesurée au Sentier = %smm, le %s.' % ( leSentier.get24h(), leSentier.getTime_serverEpoch() ))
+for station in locations:
+    #print timestamps[station]
+    #print locations[station]
+    #print rain_measures
+    #print rain60min[station]
+
+    query = 'INSERT INTO MEASURES (Epoch, Value, Unit, Station) VALUES (%s, %s, 1, 1)' % ( timestamps[station], rain60min[station] )
+
+    # Insert data in database
+    conn = sqlite3.connect(DATABASE)
+    cur = conn.cursor()
+    cur.execute(query)
+    conn.commit()
+    conn.close()
+    
+    print (u'Valeur mesurée au Sentier = %smm, le %s.' % ( rain60min[station], timestamps[station] ))
+
+    #print( query_db('SELECT * FROM MEASURES', one=False) )
