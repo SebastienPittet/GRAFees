@@ -1,6 +1,8 @@
 #!/usr/bin/python
 # encoding: utf-8
 
+# Application to schedule using crontab (each 60min)
+
 # all the imports
 import os
 import sqlite3
@@ -28,7 +30,6 @@ def query_db(query, args=(), one=False):
     return (rv[0] if rv else None) if one else rv
 
 ###############################################################################
-# Application to schedule using crontab (each 60min)
 
 # Get data from NetAtmo
 authorization = lnetatmo.ClientAuth()

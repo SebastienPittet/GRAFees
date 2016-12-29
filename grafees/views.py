@@ -120,7 +120,7 @@ def CorrelateRain():
         hist_chart.y_title = u"Niveau d'eau au dessus de la sonde"
         hist_chart.x_labels = Lanceleau.GetData().keys() # in epoch
         hist_chart.add(u"Lanceleau", Lanceleau.GetData().values())
-        #hist_chart.add(u"Lac Glaisine", [1.2,0.8,0.5,05,0.4,3, 3,4,4.5])
+        #hist_chart.add(u"Lac Glaisine", [1.2,0.8,0.5,05,0.4,3,3,4,4.5])
         hist_chart.add(u"Pluie Brassus", dev.get24h(), secondary=True) #second axe
         chart = hist_chart.render().decode('utf-8')
         return render_template('chart.html', chart=chart, title='/!\ Rain Graph is in Developpment.', debugText = '')
